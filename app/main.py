@@ -4,6 +4,13 @@ from pydantic import BaseModel
 from .semantic_cache import SemanticCache
 from .search import run_search
 
+import tarfile
+import os
+
+if not os.path.exists("data/mini_newsgroups"):
+    with tarfile.open("data/mini_newsgroups.tar.gz") as tar:
+        tar.extractall("data/")
+
 app = FastAPI()
 
 cache = SemanticCache()
@@ -49,4 +56,5 @@ def cache_stats():
 @app.delete("/cache")
 def clear_cache():
     cache.clear()
+
     return {"message": "Cache cleared"}
