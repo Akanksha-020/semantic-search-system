@@ -34,6 +34,8 @@ uvicorn app.main:app --reload
 
 The API will be available at: http://localhost:8000
 
+Important: the first startup is slow because the app loads the dataset, loads the sentence-transformer model, and generates embeddings. Wait until Uvicorn prints that it is running on `http://127.0.0.1:8000` before using `/docs`.
+
 ### Try the Interactive Docs
 Open http://localhost:8000/docs in your browser for Swagger UI
 
@@ -166,6 +168,20 @@ for cat in categories:
 ### API Not Starting
 - Make sure port 8000 is not in use
 - Try: `uvicorn app.main:app --reload --port 8001`
+
+### Windows: `[WinError 10013]` when starting Uvicorn
+- This commonly means another process is already listening on the same port
+- In this project, a previous `uvicorn app.main:app --host 127.0.0.1 --port 8000` instance may still be running in the background
+- Check the port owner with: `Get-NetTCPConnection -LocalPort 8000 | Select-Object LocalAddress,LocalPort,State,OwningProcess`
+- Inspect the process with: `Get-CimInstance Win32_Process -Filter "ProcessId = <PID>" | Select-Object ProcessId,CommandLine`
+- If it is an old server you no longer need, stop it with: `Stop-Process -Id <PID>`
+- Otherwise start this app on a different port, for example: `uvicorn app.main:app --reload --port 8001`
+
+### Swagger UI Shows "Failed to fetch"
+- Make sure the FastAPI server is actually running on `http://127.0.0.1:8000`
+- If you started the app manually, wait for the initial embedding generation to finish before opening `/docs`
+- If you are calling the API from another browser page, frontend app, or VS Code preview, that is a cross-origin request; this project now enables development CORS, but the server still must be reachable
+- `filter_category` should be a full category name such as `talk.politics.guns`; a value like `gun` will not filter, though it should not by itself cause a fetch failure
 
 ## Next Steps
 
