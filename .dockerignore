@@ -1,0 +1,40 @@
+# Python
+venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints
+
+# Node (if any)
+node_modules
+
+# Documentation (optional - exclude if you want smaller image)
+*.md
+QUICKSTART.md
+REQUIREMENTS_FULFILLMENT.md
+IMPLEMENTATION_SUMMARY.md
+
+# Test files (optional - exclude to reduce image size)
+test_system.py
+
+# Keep data directory - it's needed!
+# data/ is NOT in this list - it will be copied
