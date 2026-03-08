@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 
@@ -27,6 +28,14 @@ if not os.path.exists("data/mini_newsgroups"):
 app = FastAPI(
     title="Newsgroups Semantic Search & Clustering API",
     description="Semantic search with fuzzy clustering over 20 Newsgroups dataset"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 cache = SemanticCache()
