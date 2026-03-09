@@ -169,19 +169,7 @@ for cat in categories:
 - Make sure port 8000 is not in use
 - Try: `uvicorn app.main:app --reload --port 8001`
 
-### Windows: `[WinError 10013]` when starting Uvicorn
-- This commonly means another process is already listening on the same port
-- In this project, a previous `uvicorn app.main:app --host 127.0.0.1 --port 8000` instance may still be running in the background
-- Check the port owner with: `Get-NetTCPConnection -LocalPort 8000 | Select-Object LocalAddress,LocalPort,State,OwningProcess`
-- Inspect the process with: `Get-CimInstance Win32_Process -Filter "ProcessId = <PID>" | Select-Object ProcessId,CommandLine`
-- If it is an old server you no longer need, stop it with: `Stop-Process -Id <PID>`
-- Otherwise start this app on a different port, for example: `uvicorn app.main:app --reload --port 8001`
 
-### Swagger UI Shows "Failed to fetch"
-- Make sure the FastAPI server is actually running on `http://127.0.0.1:8000`
-- If you started the app manually, wait for the initial embedding generation to finish before opening `/docs`
-- If you are calling the API from another browser page, frontend app, or VS Code preview, that is a cross-origin request; this project now enables development CORS, but the server still must be reachable
-- `filter_category` should be a full category name such as `talk.politics.guns`; a value like `gun` will not filter, though it should not by itself cause a fetch failure
 
 ## Next Steps
 
@@ -204,4 +192,5 @@ for cat in categories:
 Check the detailed justifications in:
 - Code comments (every major decision is documented)
 - [README.md](README.md) for architecture overview
-- [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) for all changes
+
+
