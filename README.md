@@ -91,7 +91,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-The API will start at `http://localhost:8000`
+The API will start at `http://127.0.0.1:8000/docs#/`
 
 ### API Endpoints
 
@@ -285,3 +285,4 @@ Potential improvements:
 - Hierarchical fuzzy clustering
 - HNSW index for larger datasets
 - Fine-tune embedding model on newsgroups domain
+
